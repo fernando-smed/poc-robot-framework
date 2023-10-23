@@ -20,10 +20,21 @@ uma consulta de usuarios "${tipoConsulta}"
         Set Global Variable    ${endpoint}    ${endpointUsuarios}/100
     END
 
+uma solicitacao de exclusao de usuario "${tipoExclusao}"
+    IF    $tipoExclusao == 'por id'
+        Set Global Variable    ${endpoint}    ${endpointUsuarios}/1
+    ELSE
+        Set Global Variable    ${endpoint}    ${endpointUsuarios}
+    END
+
 a consulta for realizada na api json-placeholder
     ${responseLocal}        Enviar uma requisição com método GET    consultaUsuarios    ${baseUrlJsonPlaceholder}    ${endpoint}
     Set Global Variable     ${response}    ${responseLocal}
 
+a solicitacao de exclusao for realizada
+    ${responseLocal}        Enviar uma requisição com método DELETE    excluiUsuarios    ${baseUrlJsonPlaceholder}    ${endpoint}
+    Set Global Variable     ${response}        ${responseLocal}
+    
 a api deve retornar status code "${statusEsperado}"
     Status Should Be    ${statusEsperado}    ${response}
 
