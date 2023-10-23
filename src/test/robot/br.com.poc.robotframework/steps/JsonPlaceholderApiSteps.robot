@@ -27,6 +27,15 @@ uma solicitacao de exclusao de usuario "${tipoExclusao}"
         Set Global Variable    ${endpoint}    ${endpointUsuarios}
     END
 
+uma solicitacao de inclusao de um novo usuario
+    ${json}        Load Json From File        ${EsquemaUsuario}
+    ${body}        Get Value From Json        ${json}               examples[0]
+    ${body}        Update Value To Json       ${body}               $..name            Fernando Medeiros
+    ${body}        Update Value To Json       ${body}               $..username        Fern
+    ${body}        Update Value To Json       ${body}               $..email           fernando.smed@gmail.com
+    ${body}        Delete Object From Json    ${body}               $..id
+    Set Suite Variable    ${body}
+
 a consulta for realizada na api json-placeholder
     ${responseLocal}        Enviar uma requisição com método GET    consultaUsuarios    ${baseUrlJsonPlaceholder}    ${endpoint}
     Set Global Variable     ${response}    ${responseLocal}
@@ -34,7 +43,12 @@ a consulta for realizada na api json-placeholder
 a solicitacao de exclusao for realizada
     ${responseLocal}        Enviar uma requisição com método DELETE    excluiUsuarios    ${baseUrlJsonPlaceholder}    ${endpoint}
     Set Global Variable     ${response}        ${responseLocal}
-    
+
+a solicitacao de insercao for realizada
+    ${headers}    Create Dictionary    Content-type=application/json
+    ${responseLocal}        Enviar uma requisição com método POST    adicionaUsuario    ${null}    ${baseUrlJsonPlaceholder}    ${endpointUsuarios}    ${headers}    json    ${body[0]}
+    Set Global Variable    ${response}        ${responseLocal}
+
 a api deve retornar status code "${statusEsperado}"
     Status Should Be    ${statusEsperado}    ${response}
 
@@ -43,3 +57,7 @@ o contrato deve ser uma lista de usuarios
 
 o contrato deve estar correto
     Validate Json By Schema File    ${response.json()}    ${EsquemaUsuario}
+
+o campo "${campo}" deve ser "${valorEsperado}"
+    ${valorResponse}    Get Value From Json    ${response.json()}    $..${campo}
+    Should Be Equal As Strings    ${valorEsperado}    ${valorResponse[0]}

@@ -36,3 +36,11 @@ Scenario: tenta excluir usuario inexiste
     Dado uma solicitacao de exclusao de usuario "inexistente"
     Quando a solicitacao de exclusao for realizada
     Então a api deve retornar status code "404"
+
+Scenario: adiciona novo usuario
+    [Tags]    adiciona-novo-usuario
+    Dado uma solicitacao de inclusao de um novo usuario
+    Quando a solicitacao de insercao for realizada
+    Então a api deve retornar status code "201"
+        E o campo "name" deve ser "Fernando Medeiros"
+        E o campo "email" deve ser "fernando.smed@gmail.com"
