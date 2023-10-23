@@ -26,3 +26,9 @@ a consulta for realizada na api json-placeholder
 
 a api deve retornar status code "${statusEsperado}"
     Status Should Be    ${statusEsperado}    ${response}
+
+o contrato deve ser uma lista de usuarios
+    Validate Json By Schema File    ${response.json()}    ${EsquemaListaUsuarios}
+
+o contrato deve estar correto
+    Validate Json By Schema File    ${response.json()}    ${EsquemaUsuario}
