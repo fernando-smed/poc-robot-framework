@@ -1,0 +1,28 @@
+*** Settings ***
+Library    BuiltIn
+Library    Collections
+Library    JSONLibrary
+Library    FakerLibrary
+Resource    ../utils/rest/Requests.robot
+*** Variables ***
+${baseUrlJsonPlaceholder}        http://jsonplaceholder.typicode.com
+${endpointUsuarios}              /users
+${EsquemaUsuario}                src/test/robot/br.com.poc.robotframework/utils/json/JsonPlaceholderEsquemaUsuario.json
+${EsquemaListaUsuarios}          src/test/robot/br.com.poc.robotframework/utils/json/JsonPlaceholderEsquemaListaUsuarios.json
+
+*** Keywords ***
+uma consulta de usuarios "${tipoConsulta}"
+    IF    $tipoConsulta == 'geral'
+        Set Global Variable    ${endpoint}    ${endpointUsuarios}
+    ELSE IF    $tipoConsulta == 'por id'
+        Set Global Variable    ${endpoint}    ${endpointUsuarios}/1
+    ELSE
+        Set Global Variable    ${endpoint}    ${endpointUsuarios}/100
+    END
+
+a consulta for realizada na api json-placeholder
+    ${responseLocal}        Enviar uma requisição com método GET    consultaUsuarios    ${baseUrlJsonPlaceholder}    ${endpoint}
+    Set Global Variable     ${response}    ${responseLocal}
+
+a api deve retornar status code "${statusEsperado}"
+    Status Should Be    ${statusEsperado}    ${response}
