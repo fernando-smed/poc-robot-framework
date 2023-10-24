@@ -34,7 +34,7 @@ O intuito desses testes é realizar clique em diferentes botões e validar as a�
 PS: ambos devem estar com as variáveis de ambiente configuradas no SO. 
 ### Instalação das bibliotecas utilizadas no teste
 
-    pip install -r ./resources/config/requirements.txt
+    pip install -r src/test/resources/config/requirements.txt
 
 A execução deste comando instala todas as bibliotecas utilizadas neste projeto, incluindo o robot-framework.
 
