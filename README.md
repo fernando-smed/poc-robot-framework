@@ -1,8 +1,9 @@
 # poc-robot-framework
 
 ## Objetivo
-Repositório destinado a demonstrar as funcionalidades do framework robot-framework para automação de testes de API e web.
+Repositório destinado a demonstrar as funcionalidades do robot-framework para automação de testes de API e web.
 
+---
 ## Visão geral
 
 Os testes foram desenvolvidos utilizando o robot-framework (https://robotframework.org/), este framework dispõe de uma linguagem de programação mais amigável, o que facilita o tempo de aprendizagem para novos desenvolvedores. Outro ponto positivo é que o framework possui diversas bibliotecas, permitindo a automação de testes de api, web, mensageria, banco de dados, etc.
@@ -36,12 +37,18 @@ PS: ambos devem estar com as variáveis de ambiente configuradas no SO.
     pip install -r ./resources/config/requirements.txt
 
 A execução deste comando instala todas as bibliotecas utilizadas neste projeto, incluindo o robot-framework.
-### Execução dos testes por tag
-| Feature | Comando |
-|------|-----------------------------------------------------|
-|Testes API| robot -d results -i teste-api src/test/resources/features/*.robot|
-|Testes Web|robot -d results -i teste-web src/test/resources/features/*.robot|
-|Todos os testes|robot -d results -i regression src/test/resources/features/*.robot|
+
+---
+## Execução dos testes por tag
+
+#### Testes API
+    robot -d results -i teste-api src/test/resources/features/*.robot
+
+#### Testes Web
+    robot -d results -i teste-web src/test/resources/features/*.robot
+
+#### Todos os testes
+    robot -d results -i regression src/test/resources/features/*.robot
 
 ### Relatório dos testes
 Após a execução dos testes, os logs de execução e o relatório ficarão disponíveis no diretório results.
