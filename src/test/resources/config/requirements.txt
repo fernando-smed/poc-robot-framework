@@ -1,0 +1,9 @@
+fastjsonschema==2.16.3
+jsonschema==4.17.3
+robotframework==6.0.2
+robotframework-faker==5.0.0
+robotframework-jsonlibrary==0.5
+robotframework-requests==0.9.4
+robotframework-seleniumlibrary==6.0.0
+waiting==1.4.1
+selenium==4.9.1
