@@ -14,10 +14,8 @@ ${EsquemaListaUsuarios}          src/test/robot/br.com.poc.robotframework/utils/
 uma consulta de usuarios "${tipoConsulta}"
     IF    $tipoConsulta == 'geral'
         Set Global Variable    ${endpoint}    ${endpointUsuarios}
-    ELSE IF    $tipoConsulta == 'por id'
-        Set Global Variable    ${endpoint}    ${endpointUsuarios}/1
-    ELSE
-        Set Global Variable    ${endpoint}    ${endpointUsuarios}/100
+    ELSE IF    $tipoConsulta == 'por nome'
+        Set Global Variable    ${endpoint}    ${endpointUsuarios}?name=
     END
 
 uma solicitacao de exclusao de usuario "${tipoExclusao}"
@@ -36,6 +34,19 @@ uma solicitacao de inclusao de um novo usuario
     ${body}        Delete Object From Json    ${body}               $..id
     Set Suite Variable    ${body}
 
+uma solicitacao de atualizacao de um usuario existente
+    ${json}        Load Json From File        ${EsquemaUsuario}
+    ${body}        Get Value From Json        ${json}               examples[0]
+    ${body}        Update Value To Json       ${body}               $..email           nao.tem@teste.com
+    ${body}        Delete Object From Json    ${body}               $..id
+    Set Suite Variable    ${body}
+
+o id do usuario e "${id}"
+    Set Global Variable    ${endpoint}    ${endpointUsuarios}/${id}
+
+o nome do usuario e "${nome}"
+    Set Global Variable    ${endpoint}    ${endpoint}${nome}
+
 a consulta for realizada na api json-placeholder
     ${responseLocal}        Enviar uma requisição com método GET    consultaUsuarios    ${baseUrlJsonPlaceholder}    ${endpoint}
     Set Global Variable     ${response}    ${responseLocal}
@@ -47,6 +58,11 @@ a solicitacao de exclusao for realizada
 a solicitacao de insercao for realizada
     ${headers}    Create Dictionary    Content-type=application/json
     ${responseLocal}        Enviar uma requisição com método POST    adicionaUsuario    ${null}    ${baseUrlJsonPlaceholder}    ${endpointUsuarios}    ${headers}    json    ${body[0]}
+    Set Global Variable    ${response}        ${responseLocal}
+
+a solicitacao de atualizacao for realizada
+    ${headers}    Create Dictionary    Content-type=application/json
+    ${responseLocal}        Enviar uma requisição com método PUT    atualizaUsuario    ${null}    ${baseUrlJsonPlaceholder}    ${endpoint}    ${headers}    json    ${body[0]}
     Set Global Variable    ${response}        ${responseLocal}
 
 a api deve retornar status code "${statusEsperado}"
