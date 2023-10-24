@@ -1,7 +1,7 @@
 Language: Portuguese
 *** Settings ***
-Library    SeleniumLibrary
-Resource    ../../robot/br.com.poc.robotframework/steps/JsonPlaceholderApiSteps.robot
+Library      SeleniumLibrary
+Resource     ../../robot/br.com.poc.robotframework/steps/JsonPlaceholderApiSteps.robot
 Test Tags    teste-api    regression    backend
 
 *** Test Cases ***

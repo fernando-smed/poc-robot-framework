@@ -60,7 +60,7 @@ Scenario: valida clique nos botoes da tabela
 *** Keywords ***
 Scenario Outline: Valida clique nos botoes edit e delete de cada linha da tabela
     [Documentation]    Teste de aplicação web clicando em cada elemento da tabela
-    [Tags]             regression    teste-botoes-da-tabela
+    [Tags]             teste-botoes-da-tabela
     [Arguments]        ${botao}      ${linha}
     Set Selenium Speed        .2s
     Set Selenium Timeout      30s

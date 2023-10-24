@@ -61,8 +61,8 @@ a solicitacao de insercao for realizada
     Set Global Variable    ${response}        ${responseLocal}
 
 a solicitacao de atualizacao for realizada
-    ${headers}    Create Dictionary    Content-type=application/json
-    ${responseLocal}        Enviar uma requisição com método PUT    atualizaUsuario    ${null}    ${baseUrlJsonPlaceholder}    ${endpoint}    ${headers}    json    ${body[0]}
+    ${headers}             Create Dictionary    Content-type=application/json
+    ${responseLocal}       Enviar uma requisição com método PUT    atualizaUsuario    ${null}    ${baseUrlJsonPlaceholder}    ${endpoint}    ${headers}    json    ${body[0]}
     Set Global Variable    ${response}        ${responseLocal}
 
 a api deve retornar status code "${statusEsperado}"
@@ -75,5 +75,5 @@ o contrato deve estar correto
     Validate Json By Schema File    ${response.json()}    ${EsquemaUsuario}
 
 o campo "${campo}" deve ser "${valorEsperado}"
-    ${valorResponse}    Get Value From Json    ${response.json()}    $..${campo}
-    Should Be Equal As Strings    ${valorEsperado}    ${valorResponse[0]}
+    ${valorResponse}                Get Value From Json    ${response.json()}    $..${campo}
+    Should Be Equal As Strings      ${valorEsperado}       ${valorResponse[0]}
